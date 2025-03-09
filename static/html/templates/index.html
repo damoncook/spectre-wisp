@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisp Reporter</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <h1>Wisp Reporter ({{ .HostName }})</h1>
+</head>
+<body>
+    <div class="report-section">
+        <h2>Request Headers Received</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Header</th>
+                    <th>Value(s)</th>
+                </tr>
+            </thead>
+            <tbody>{{ range .Headers }}
+                <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Values }}</td>
+                </tr>{{ end }}
+            </tbody>
+        </table>
+    </div>
+    <div class="report-section">
+        <h2>Service Environment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>{{ range .EnvVars }}
+                <tr>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Value }}</td>
+                </tr>{{ end }}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+</body>
+</html>

@@ -1,0 +1,7 @@
+---
+# WebAddr: IPv4 address to bind service to
+WebAddr: "0.0.0.0"
+# WebPort: TCP port to bind service to
+WebPort: "8080"
+# LogType:  'console', 'file'
+LogType: "console"
