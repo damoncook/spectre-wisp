@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 )
 
 func InitLogger(logCategory string, logType string) *log.Logger {
@@ -24,9 +23,24 @@ func InitLogger(logCategory string, logType string) *log.Logger {
 			return nil
 		}
 	}
-	logger = log.New(&logBuffer, ": ", log.Lshortfile)
-	logger.SetPrefix(time.Now().Format("2006-01-02 15:04:05") + " - ")
+	logger = log.New(&logBuffer, logCategory+": ", log.LstdFlags)
+	//logger.SetPrefix(time.Now().Format("2006-01-02 15:04:05") + " - ")
 	logger.SetOutput(logFile)
 
 	return logger
+}
+
+func PrintErr(log *log.Logger, err error) {
+	log.Printf("%s%s%s%s\n",
+		Red,
+		"ERROR: ",
+		err,
+		Reset)
+}
+
+func PrintGreen(log *log.Logger, msg string) {
+	log.Printf("%s%s%s\n",
+		Green,
+		msg,
+		Reset)
 }

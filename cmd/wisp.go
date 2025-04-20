@@ -11,6 +11,9 @@ import (
 var wispServerConfig *config.ServerConfig
 
 func main() {
+	// service greeting, always to STDOUT
+	fmt.Print(wispweb.WispLogo)
+
 	// initialize main error object for handling
 	var err error
 
@@ -23,20 +26,16 @@ func main() {
 	// load configuration
 	wispServerConfig, err = config.LoadConfigFromYAML(configFilePath)
 
-	if err != nil {
-		fmt.Println("! Could not load configuration file:", err)
-		fmt.Println("  ... please ensure you have a config.yaml file in the " +
-			"server executable directory.")
-		os.Exit(1)
+	if err != nil { // we had a problem loading and/or parsing configuration
+		os.Exit(1) // logger will handle messages
 	}
-	fmt.Println("* Loaded configuration from", configFilePath)
 
+	// assign loaded configs
 	srv.Config = wispServerConfig
 
+	// run server listener
 	err = wispweb.Run(srv)
-	if err != nil {
-		fmt.Println("! Couldn't launch web service:", err)
+	if err != nil { // we catch server startup issues
 		os.Exit(1)
 	}
-
 }
